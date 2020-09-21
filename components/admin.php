@@ -1,0 +1,3 @@
+<?php 
+getComponent('admin/index');
+?>

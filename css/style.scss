@@ -1,0 +1,574 @@
+//VARS
+$main: #1238D1;
+$sec: #FEFFFF;
+$lightGray: #DADBDB;
+$neutral: #0cbaba;
+$accept: #3AB518;
+$reject: #E6251A;
+$normal: #171717;
+$fonts: 'Blinker', 'Segoe UI', sans-serif;
+
+//MIXINS
+@mixin defaultMargins {
+    padding: 1vh 1vw;
+    margin: 1vh 1vw;
+}
+@mixin shadows($size, $objColor, $parentColor) {
+    box-shadow: rgba($objColor, 0.7) $size $size 2.5*$size,
+                rgba($parentColor, 0.5) -1*$size -1*$size 2.5*$size;
+}
+@mixin shadowsOld($x, $y, $blur) {
+    box-shadow: #101010 $x $y $blur,
+                #DDDDDD -1*$x -1*$y $blur;
+}
+@mixin centeringFlex {
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+    align-items: center;
+}
+@mixin roundEdges {
+    border-radius: 0.5vmax;
+}
+
+//ANIMATIONS
+@keyframes fadeIn{
+    from {opacity: 0};
+    to {opacity: 1};
+}
+@keyframes fadeIn80percent{
+    from {opacity: 0};
+    to {opacity: 0.8};
+}
+@keyframes fadeOut{
+    from {opacity: 1};
+    to {opacity: 0};
+}
+@keyframes fadeOut80percent{
+    from {opacity: 0.8};
+    to {opacity: 0};
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    display: grid;
+    font-family: $fonts;
+    color: $normal;
+    background-color: $sec;
+    font-weight: 500;
+    grid-template-rows: repeat(12, 1fr);
+    grid-template-columns: repeat(12, 1fr);
+    gap: 0.75vmax;
+    height: 100vh;
+}
+
+.btn{
+    @include defaultMargins();
+    border: none;
+    border-radius: 5vmin;
+    font-family: $fonts;
+    text-decoration: none;
+}
+
+.primary{
+    background-color: #1238D1;
+    background-image: linear-gradient(23deg, #1238D1 24%, #009ffd 76%);
+    background-color: $main;
+    color: $sec;
+}
+.dark{
+    background-color: $main;
+    color: $sec;
+    &:hover{
+        background-color: $sec;
+        color: $main;
+        //@include shadowsOld(0.1vmax, 0.1vmax, 0.5vmax);
+        @include shadows(0.25vmax, $main , $sec);
+    }
+}
+.light{
+    background-color: $sec;
+    color: $main;
+    &:hover{
+        //@include shadowsOld(0.2vmax, 0.2vmax, 0.65vmax);
+        @include shadows(0.25vmax, $main , $sec);
+    }
+}
+.accept{
+    background-color: $accept;
+    color: $sec;
+    &:hover{
+        //@include shadowsOld(0.2vmax, 0.2vmax, 0.65vmax);
+        @include shadows(0.25vmax, $accept , $sec);
+    }
+}
+.reject{
+    background-color: $reject;
+    color: $sec;
+    &:hover{
+        //@include shadowsOld(0.2vmax, 0.2vmax, 0.65vmax);
+        @include shadows(0.25vmax, $reject , $sec);
+    }
+}
+
+.btn-status{
+    padding: 0.3vh 0.5vw;
+    margin: 0.3vh 0.5vw;
+    border: none;
+    border-radius: 5vmin;
+    font-family: $fonts;
+    text-decoration: none;
+}
+
+.btn-td{
+    display: block;
+    text-align: center;
+    width: 100%;
+    @include roundEdges();
+}
+
+a{
+    text-decoration: none;
+    color: inherit;
+}
+.link{
+    &:hover{
+        font-weight: 600;
+    }
+}
+h1{
+    font-size: 3rem;
+    font-weight: 700;
+}
+h2{
+    font-size: 2.5rem;
+    font-weight: 500;
+}
+h3{
+    font-size: 2rem;
+    font-weight: 300;
+}
+h4{
+    font-size: 1.5rem;
+    font-weight: 300;
+}
+p,label,input, select, option, .btn, li, span, textarea, button, .btn-status{
+    font-size: 1.2rem;
+    font-weight: 400;
+}
+em{
+    font-weight: 600;
+}
+
+//HEADER
+.title{
+    font-stretch: 1.2em;
+}
+
+header{
+    background-color: $sec;
+    padding: 1vh 3vw;
+    grid-row: 1/2;
+    grid-column: 1 / 13;
+    @include centeringFlex();
+    justify-content: space-between;
+    //@include shadowsOld(0, 0, 0.95vmax);
+    @include shadows(0.95vmax, $main , $sec);
+    z-index: 100;
+}
+
+footer{
+    grid-row: 12;
+    grid-column: 1 / 13;
+    text-align: center;
+    align-self: center;
+}
+
+.login-panel{
+    grid-column: 11/13;
+    grid-row: 2/3;
+    @include centeringFlex();
+    justify-content: space-between;
+    & p{
+    vertical-align: middle;
+    text-align: right;
+    }
+}
+//MENU
+nav{
+    grid-row: 1 / 3;
+    grid-column: 1 / 13;
+    @include centeringFlex();
+    justify-content: center;
+    align-content: flex-end;
+    align-items: flex-end;
+    //@include shadowsOld(-0, -0, 0.95vmax);
+    @include shadows(0.95vmax, $main , $sec);
+    ul{
+        list-style-type: none;
+    }
+}
+
+.block{
+    display: inline-block;
+    @include defaultMargins();
+    @include roundEdges();
+    font-family: $fonts;
+    text-decoration: none;
+}
+
+.badge{
+    margin: auto 1vw;
+}
+
+//CONTAINERS
+.container{
+    grid-row: 3 / 12;
+    grid-column: 1 / 13;
+    @include centeringFlex();
+    justify-content: unset;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    flex-direction: column;
+    padding: 3vh 0;
+}
+
+.container-no-login{
+    grid-row: 2 / 12;
+}
+
+section{
+    padding: 2.5vh 2.5vw 2.5vh;
+    margin: 2vh 0;
+    //grid-row: span 8;
+    //grid-column: 2 / 12;
+    width: 70vw;
+    //min-height: 50vh;
+    @include roundEdges();
+    //@include shadowsOld(0.25vmax, 0.25vmax, 0.75vmax);
+    @include shadows(0.75vmax, $main , $sec);
+}
+
+.no-login{
+    min-height: 50vh;
+}
+
+.ad{
+    //grid-column: 1 / 7;
+    //grid-row: span 9;
+    background-color: $main;
+    color: $sec;
+    text-align: center;
+}
+
+.authform{
+    //grid-column: 2/12;
+    //grid-row: span 9;
+    background-color: $main;
+    color: $sec;
+    @include centeringFlex();
+    flex-direction: column;
+}
+
+.hello{
+    //grid-column: 3 / 11;
+    background-color: $main;
+    color: $sec;
+    text-align: left;
+}
+
+.flex{
+    @include centeringFlex();
+}
+
+.memo-container{
+    display: grid;
+    grid-template-rows: 1fr repeat(4, minmax(10vmin, 1fr)) 1fr;
+    grid-template-columns: repeat(4, minmax(10vmin, 1fr));
+    gap: 1.25vmax;
+    & h1, h2{
+        grid-column: span 1;
+        align-self: center;
+    }
+    h2{
+        grid-column: span 2;
+        text-align: right;
+    }
+}
+.card{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $neutral;
+    color: $sec;
+    @include shadows(0.15vmax, $main , $sec);
+    grid-row: span 1;
+    grid-column: span 1;
+    @include roundEdges();
+    text-align: center;
+    vertical-align: middle;
+    font-size: 1.1rem;
+    padding: 0.5vmax;
+    
+}
+.inactive{
+    background-color: $neutral;
+    transition: transform 0.5s ease-in-out,
+                background-color 0.5s ease-in-out;
+    transform: rotateX(180deg);
+    & p{
+        //display: none;
+        transition: opacity 0.25s ease-in 0s;
+        opacity: 0;
+        
+    }
+}
+
+.active{
+    background-color: $main;
+    transition: transform 0.75s ease-in-out,
+                background-color 0.75s ease-in-out;
+    transform: rotateX(0deg);
+    & p{
+        //display: block;
+        transition: opacity 0.25s linear 0.25s;
+        opacity: 1;
+        
+    }
+}
+
+.correct{
+    background-color: $accept;
+    transition: background-color 0.3s ease-in-out 0.3s;
+}
+
+.incorrect{
+    background-color: $reject;
+    transition: background-color 0.3s ease-in-out 0.3s;
+}
+
+
+//ALERT
+.alert{
+    position: fixed;
+    z-index: 300;
+    height: 15vh;
+    width: 100vw;
+    text-align: center;
+    opacity: 0.8;
+    @include roundEdges();
+    animation: fadeIn80percent 0.25s ease-in;
+    animation-fill-mode: forwards;
+
+}
+
+//FORM ELEMENTS
+.authform form{
+    @include centeringFlex();
+    flex-direction: column;
+}
+
+input, select, option, textarea{
+    border-radius: 0.5vmax;
+    padding: 0.5vmax;
+    margin: 0.5vmax;
+    border: none;
+    font-family: inherit;
+    @include shadows(0.15vmax, $main , $sec);
+}
+
+form.edit-user{
+    @include centeringFlex();
+    flex-direction: column;
+    & input{
+        width: 80%;
+        padding: 0.25vmax;
+        margin: 0.25vmax;
+        &[type=submit]{
+            min-width: 30%;
+        }
+    }
+}
+form.add-word{
+    @include centeringFlex();
+    flex-direction: column;
+    width: 45%;
+    & input{
+        width: 100%;
+    }
+}
+textarea{
+    font-family: inherit;
+}
+
+//TABLE
+table, tr, td, th{
+    border-collapse: collapse;
+}
+tr{
+    border-bottom: 1px solid black;
+}
+td:nth-of-type(even){
+background-color: $lightGray;
+}
+table{
+    width: 100%;
+    margin-top: 0.5vmax;
+}
+thead th:first-of-type{
+    border-radius: 0.5vmax 0 0 0;
+}
+thead th:last-of-type{
+    border-radius: 0 0.5vmax 0 0;
+}
+tr{
+    max-width: 100%;
+}
+td,th{
+    padding: 0.5vmax;
+}
+
+.close-menu, .open-menu{
+    display: none;
+}
+
+
+
+.word-img{
+    @include roundEdges();
+    width: 50%;
+    height: auto;
+    margin: 1vh auto;
+    @include shadows(0.35vmax, $main , $sec);
+}
+
+//MOBILE
+@media screen and (max-width: 660px){
+    .hide-mobile{
+        display: none;
+    }
+    //FONTS
+    h1{
+        font-size: 2.5rem;
+    }
+    h2{
+        font-size: 2rem;
+    }
+    h3{
+        font-size: 1.75rem;
+    }
+    h4{
+        font-size: 1.5rem;
+    }
+    p,label,input, select, option, .btn, li, span, textarea{
+        font-size: 1.25rem;
+    }
+
+
+    //CONTAINERS
+    .container{
+        grid-row: 3 / 12;
+    }
+
+    .container-no-login{
+        grid-row: 2 / 12;
+    }
+    
+    section{
+        padding: 5vh 4vw;
+        width: 88vw;
+        //min-height: 55vh;
+        //grid-row: span 9;
+        //grid-column: 2 / 12;
+        @include roundEdges();
+        @include shadowsOld(0.25vmax, 0.25vmax, 0.75vmax);
+    }
+
+    .no-login{
+        min-height: 63vh;
+    }
+    
+    table{
+        width:100%;
+		table-layout: fixed;
+    }
+
+    td, th{
+        word-wrap: break-word;
+        padding: 0.2vmax 0.5vmax;
+        font-size: 0.9em;
+    }
+    nav{
+        display: none;
+        opacity: 0;
+        animation: fadeIn 0.25s ease-in;
+        animation-fill-mode: forwards;
+        grid-row: 1 / 13;
+        z-index: 110;
+        flex-direction: column;
+        justify-content: stretch;
+        align-content: center;
+        align-items: center;
+        ul{
+            height: 60%;
+            @include centeringFlex();
+            flex-direction: column;
+            .block{
+                padding: 5vmin;
+                width: 80vmin;
+                text-align: center;
+                border-radius: 5vmin;
+            }
+        }
+    }
+    .mobile-login-panel{
+        //display: none;
+        flex-direction: column;
+        a{
+            padding: 5vmin;
+            width: 80vmin;
+            text-align: center;
+        }
+    }
+    /*
+    .ad, .authform, .hello{
+        //grid-column: 2 / 12;
+    }*/
+
+    header{
+        grid-row: 1/2;
+        //flex-direction: column;
+    }
+    .title{
+        text-align: center;
+    }
+    .memo-container{
+        grid-column: 1 / 13;
+        & h1, h2, button{
+        font-size: 1.25rem;;
+        }
+    }
+    .open-menu{
+        display: initial;
+        grid-column: 1/13;
+        grid-row: 2/3;
+    }
+
+    .close-menu{
+        padding: 0;
+        width: 3rem;
+        height: 3rem;
+        font-size: 2.5rem;
+        font-weight: 700;
+        display: block;
+        align-self: flex-end;
+        justify-self: flex-start;
+    }
+    .word-img{
+        width: 100%;
+    }
+}
